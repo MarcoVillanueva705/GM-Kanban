@@ -6,6 +6,9 @@ const _repository = mongoose.model('List', List)
 
 class ListService {
 
+  async getAll(userId){
+    return await _repository.find({authorId: userId})
+  }
 async create (rawData){
   return await _repository.create(rawData);
 
