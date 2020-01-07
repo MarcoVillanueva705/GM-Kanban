@@ -1,6 +1,7 @@
 import _boardService from '../services/BoardService'
 import express from 'express'
 import { Authorize } from '../middleware/authorize.js'
+import ListService from '../services/ListService'
 
 
 //PUBLIC
@@ -13,6 +14,7 @@ export default class BoardsController {
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
+      .get("/:id/lists", this.getLists)
       .use(this.defaultRoute)
   }
 
@@ -59,6 +61,16 @@ export default class BoardsController {
       return res.send("Successfully deleted")
     } catch (error) { next(error) }
   }
+
+async getLists(req, res, next) {
+try {
+ let data = await ListService.getLists(req.params.id) 
+ return res.send(data);
+} catch (error) {
+  next(error)
+}
+  }
+
 }
 
 

@@ -1,10 +1,55 @@
 <template>
-  <div class="board">{{board.title}}</div>
+  <div class="board">{{board.title}}
+    <form @submit.prevent="addList">
+      <input type="text" placeholder="title" v-model="newList.title" required>
+      <button type="submit">New List</button>
+      <list/> 
+    </form>
+
+
+  </div>
+
 </template>
 
 <script>
+import List from "@/components/List.vue"
 export default {
   name: "board",
+
+data() {
+return {
+  newList: {
+  title: "",
+  boardId: this.$route.params.boardId,
+  // authorId: this.$store.state.user.params
+  }
+}
+  },
+
+  mounted() {
+  this.$store.dispatch("getListByBoardId", this.$route.params.id)
+  
+  },
+
+    methods:{
+      addList(){
+        debugger
+// let data = {
+//   title: this.title,
+//   boardId: this.$route.params.id,
+//   authorId: this.$route.params.uid 
+// }
+// this.$store.dispatch("createList",data)
+      let list= {...this.newList};
+      this.$store.dispatch("createList", list);
+      this.newList = {
+         title: "",
+         boardId: this.$route.params.boardId,
+        
+      
+      }
+      }
+    },
   computed: {
     board() {
       return (
@@ -13,8 +58,15 @@ export default {
           title: "Loading..."
         }
       );
-    }
   },
+activeBoard () {
+  return this.$store.state.activeBoard;
+},
+
+components: {
+  List
+}
+    },
   props: ["boardId"]
 };
 </script>

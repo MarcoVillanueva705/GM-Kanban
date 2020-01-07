@@ -1,0 +1,36 @@
+import _listService from "../services/ListService"
+import express from "express"
+import { Authorize } from "../middleware/authorize.js"
+import BoardService from "../services/BoardService"
+
+export default class ListsController {
+  constructor(){
+    this.router = express.Router()
+    .use(Authorize.authenticated)
+    // .get("", this.getAll),
+    // 
+    .post("", this.create)
+    .delete("/:id", this.delete);
+
+  }
+
+async create(req, res, next) {
+  try {
+req.body.authorId = req.session.uid
+let data = await _listService.create(req.body)
+return res.status(201).send(data);
+  } catch (error) {
+    next(error)
+  }
+}
+
+async delete(req, res, next) {
+  try {
+await _listService.delete(req.params.id);
+return res.send("Successfully Deleted!");
+  } catch (error) {
+    next(error)
+  }
+}
+
+}
