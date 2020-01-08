@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import List from "../models/List"
 import ApiError from "../utils/ApiError"
 
+
 const _repository = mongoose.model('List', List)
 
 class ListService {
@@ -20,10 +21,17 @@ async delete (id) {
   }
 }
 
-async getLists(board) {
-  return await _repository.find({board});
-}
+// async getLists(board) {
+//   return await _repository.find({board});
+// }
 
+async getListsByBoardId(boardId) {
+  let data = await _repository.find({boardId:boardId});
+  if (!data) {
+    throw new Error("Invalid Id");
+  }
+  return data;
+}
 }
 
 

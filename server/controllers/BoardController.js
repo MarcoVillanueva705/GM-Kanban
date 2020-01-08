@@ -14,7 +14,8 @@ export default class BoardsController {
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
-      .get("/:id/lists", this.getLists)
+      // .get("/:id/lists", this.getLists)
+      .get("/:id/lists", this.getListsByBoardId)
       .use(this.defaultRoute)
   }
 
@@ -40,6 +41,15 @@ export default class BoardsController {
     } catch (error) { next(error) }
   }
 
+  async getListsByBoardId(req,res,next){
+    try {
+      let data = await ListService.getListsByBoardId(req.params.id)
+      return res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   async create(req, res, next) {
     try {
       req.body.authorId = req.session.uid
@@ -62,14 +72,14 @@ export default class BoardsController {
     } catch (error) { next(error) }
   }
 
-async getLists(req, res, next) {
-try {
- let data = await ListService.getLists(req.params.id) 
- return res.send(data);
-} catch (error) {
-  next(error)
-}
-  }
+// async getLists(req, res, next) {
+// try {
+//  let data = await ListService.getLists(req.params.id) 
+//  return res.send(data);
+// } catch (error) {
+//   next(error)
+// }
+//   }
 
 }
 

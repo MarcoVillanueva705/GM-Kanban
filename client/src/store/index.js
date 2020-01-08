@@ -20,7 +20,8 @@ export default new Vuex.Store({
     lists:[],
     user: {},
     boards: [],
-    activeBoard: {}
+    activeBoard: {},
+    activeList:{}
   },
   mutations: {
     setUser(state, user) {
@@ -30,12 +31,19 @@ export default new Vuex.Store({
     setBoards(state, boards) {
       state.boards = boards
     },
-    setLists(state,data){
-      state.lists =data
+    setLists(state, data){
+      state.lists = data
     },
     addLists(state, data) {
       state.lists.push(data);
-    }
+    },
+    // setActiveList(state, data){
+    //   state.activeBoard= (data)
+    // }
+    // delete(state,data){
+    //   state.boards.find
+    // }
+
   },
   actions: {
     //#region -- AUTH STUFF --
@@ -83,18 +91,31 @@ export default new Vuex.Store({
           dispatch('getBoards')
         })
     },
+    async deleteBoard({ commit, dispatch }, id) {
+      let res = await api.delete("boards/"+ id);
+      dispatch("getBoards")
+    },
+    
     //#endregion
 
     //#region -- LISTS --
-    async getLists({commit,dispatch}, id){
-      let res = await api.get("lists")
-      commit("setLists",res.data)
+    async getLists({commit,dispatch}, boardId){
+      // debugger
+      let res = await api.get(`boards/${boardId}/lists`)
+      commit("setLists" , res.data)
+      console.log("here", res.data);
+       
     },
     async createList({commit, dispatch}, list) {
       let res= await api.post("lists", list);
       commit("addLists",res.data)
       console.log(" from store", res)
-    }
+    },
+    async deleteList({ commit, dispatch }, list) {
+      console.log(list)
+      let res = await api.delete("lists/"+ list.id);
+      dispatch ("getLists",list.boardId)
+    },
     }
     // async getListByBoardId({commit, dispatch}, id) {
     //   let res = await api.get("boards/" +id+ "/lists")

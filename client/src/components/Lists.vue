@@ -3,7 +3,8 @@
     
     <div class="card" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">{{list.title}}</h5>
+    <div>
+    <h5 class="card-title">{{list.title}}</h5> <button @click="removeList(list)" class=" btn btn-danger">X</button></div>
     <form @submit.prevent="addTask">
       <input type="text" placeholder="Task Title" v-model="newTask.description" required>
     <button type="submit" >New Task</button>
@@ -38,7 +39,13 @@ methods:{
       this.newTask = {
          description: "",
          boardId: this.$route.params.boardId,
-         }}
+         }},
+
+  removeList(list){
+    console.log(list)
+this.$store.dispatch("deleteList", list)
+
+    }
 // data()
 // {
 //   return{

@@ -1,14 +1,15 @@
 <template>
-  <div class="board">{{board.title}}
+  <div class="board">
+    {{board.title}}
+      
+  
     <form @submit.prevent="addList">
       <input type="text" placeholder="title" v-model="newList.title" required>
       <button type="submit">New List</button>
-      <div class="card-deck">
-      <lists v-for="list in lists" :key="list.id" :list="list"/> 
-      </div>
     </form>
-
-
+      <div class="card-deck">
+      <lists v-for="list in lists" :key="list.id" :list="list"/>
+      </div>
   </div>
 
 </template>
@@ -30,7 +31,7 @@ return {
 
   mounted() {
   this.$store.dispatch("getLists", this.$route.params.boardId)
-  
+  this.$store.dispatch("getBoards")
   },
 
     methods:{
@@ -50,9 +51,12 @@ return {
         
       
       }
-      }
+      },
+      // close(){
+
     },
   computed: {
+      
     board() {
       return (
         //FIXME This does not work on page reload because the boards array is empty in the store
@@ -61,6 +65,7 @@ return {
         }
       );
   },
+
 activeBoard () {
   return this.$store.state.activeBoard;
 },

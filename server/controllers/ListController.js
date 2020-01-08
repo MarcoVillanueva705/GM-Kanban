@@ -8,7 +8,7 @@ export default class ListsController {
     this.router = express.Router()
     .use(Authorize.authenticated)
     .get("", this.getAll)
-    
+    // .get("/:id/lists", this.getListsByBoardId)
     .post("", this.create)
     .delete("/:id", this.delete);
 
@@ -32,6 +32,8 @@ async getAll(req,res,next){
     next(error)
   }
 }
+
+
 
 async delete(req, res, next) {
   try {
