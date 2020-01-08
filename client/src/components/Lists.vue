@@ -3,11 +3,11 @@
     
     <div class="card" style="width: 18rem;">
   <div class="card-body">
+    <h5 class="card-title">{{list.title}}</h5>
     <form @submit.prevent="addTask">
       <input type="text" placeholder="Task Title" v-model="newTask.description" required>
     <button type="submit" >New Task</button>
     </form>
-    <h5 class="card-title">{{list.title}}</h5>
     
   </div>
    </div>
