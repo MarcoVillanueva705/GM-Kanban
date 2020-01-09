@@ -2,13 +2,14 @@ import _listService from "../services/ListService"
 import express from "express"
 import { Authorize } from "../middleware/authorize.js"
 import BoardService from "../services/BoardService"
+import TaskService from "../services/TaskService"
 
 export default class ListsController {
   constructor(){
     this.router = express.Router()
     .use(Authorize.authenticated)
     .get("", this.getAll)
-    // .get("/:id/lists", this.getListsByBoardId)
+    .get("/:id/tasks", this.getTasksByListId)
     .post("", this.create)
     .delete("/:id", this.delete);
 
@@ -44,4 +45,12 @@ return res.send("Successfully Deleted!");
   }
 }
 
+async getTasksByListId(req,res,next){
+  try {
+    let data = await TaskService.getTasksByListId(req.params.id)
+    return res.send(data)
+  } catch (error) {
+    next(error)
+  }
+}
 }

@@ -16,6 +16,7 @@
 
 <script>
 import Lists from "@/components/Lists.vue"
+// import Tasks from "@/components/Tasks.vue"
 export default {
   name: "board",
 
@@ -32,11 +33,13 @@ return {
   mounted() {
   this.$store.dispatch("getLists", this.$route.params.boardId)
   this.$store.dispatch("getBoards")
+  // this.$store.dispatch("getTasks",
+
   },
 
     methods:{
       addList(){
-        debugger
+     
 // let data = {
 //   title: this.title,
 //   boardId: this.$route.params.id,

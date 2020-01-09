@@ -11,38 +11,49 @@
     </form>
     
   </div>
+  <tasks v-for="task in tasks" :key="task.id" :task="task"/>
    </div>
    </div>
   
 </template>
 
 <script>
+import Tasks from "@/components/Tasks.vue"
 export default {
   name: 'List',
-  props: ['list'],
+  // name: 'Task',
+   props: ['list'],
 
 data() {
 return {
   newTask: {
   description: "",
-
+  listId: this.list._id,
   boardId: this.$route.params.boardId,
   // authorId: this.$store.state.user.params
   }
 }
   },
 
+  mounted(){
+ this.$store.dispatch("getTasks", this.list._id)
+//  console.log("******",this.list._id)
+  },
+
 methods:{
   addTask(){
   let task= {...this.newTask};
-      this.$store.dispatch("createTask", Task);
+      this.$store.dispatch("createTask", task);
+      // console.log("what is task",task);
+      
       this.newTask = {
          description: "",
+        listId: this.list._id,
          boardId: this.$route.params.boardId,
          }},
 
   removeList(list){
-    console.log(list)
+    // console.log(list)
 this.$store.dispatch("deleteList", list)
 
     }
@@ -51,7 +62,25 @@ this.$store.dispatch("deleteList", list)
 //   return{
 //     list:""
 // }}
-}}
+},
+computed:{
+tasks(){
+  
+  return this.$store.state.tasks[this.list._id]
+  // console.log(this.list._id);
+  
+  // return this.$store.dispatch("getTasks", listId)
+  // console.log("tasks", listId);
+  
+  }
+
+},
+
+components:{
+Tasks
+
+}
+}
 </script>
 
 <style scoped>

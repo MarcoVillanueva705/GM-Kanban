@@ -1,14 +1,12 @@
 import express from "express"
 import {Authorize} from "../middleware/authorize"
-import _taskService from "../services/TaskService"
-import _commentService from "../services/CommentService"
+import _CommentService from "../services/CommentService"
 
-export default class TasksController {
+export default class CommentController {
     constructor(){
       this.router = express.Router()
       .use(Authorize.authenticated)
     //   .get("", this.getAll)
-        .get("/:id/comment", this.getCommentsByTaskId)
       .post("", this.create)
       .delete("/:id", this.delete)
     .use(this.defaultRoute)
@@ -21,28 +19,21 @@ export default class TasksController {
       async create(req, res, next) {
         try {
       req.body.authorId = req.session.uid
-      let data = await _taskService.create(req.body)
+      let data = await _CommentService.create(req.body)
       return res.status(201).send(data);
         } catch (error) {
           next(error)
         }
       }
 
+
+
       async delete(req, res, next) {
         try {
-      await _taskService.delete(req.params.id);
+      await _CommentService.delete(req.params.id);
       return res.send("Successfully Deleted!");
         } catch (error) {
           next(error)
         }
-      }
-
-      async getCommentsByTaskId(req, res, next) {
-          try {
-           let data = await _commentService.getCommentsByTaskId(req.params.id)   
-           return res.send(data)
-          } catch (error) {
-              next(error)
-          }
       }
 }
