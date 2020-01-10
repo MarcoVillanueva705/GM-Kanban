@@ -2,18 +2,19 @@
   <div class="list">
     
     <div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <div>
-    <h5 class="card-title">{{list.title}}</h5> <button @click="removeList(list)" class=" btn btn-danger">X</button></div>
-    <form @submit.prevent="addTask">
-      <input type="text" placeholder="Task Title" v-model="newTask.description" required>
-    <button type="submit" >New Task</button>
-    </form>
+      <div class="card-body">
+        <div>
+         <h5 class="card-title">{{list.title}}</h5> <button @click="removeList(list)" class=" btn btn-danger">X</button>
+        </div>
+        <form  @submit.prevent="addTask">
+         <input type="text" placeholder="Task Title" v-model="newTask.description" required>
+         <button type="submit" >New Task</button>
+       </form>
     
+      </div>
+       <tasks v-for="task in tasks" :key="task.id" :task="task"/>
+    </div>
   </div>
-  <tasks v-for="task in tasks" :key="task.id" :task="task"/>
-   </div>
-   </div>
   
 </template>
 
