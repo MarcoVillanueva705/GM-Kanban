@@ -1,7 +1,7 @@
 <template>
   <div class="task">
     {{task.description}}
-    <div class="btn-group">
+    <!-- <div class="btn-group">
       <button
         class="btn btn-secondary btn-sm dropdown-toggle"
         type="button"
@@ -18,7 +18,11 @@
           :list="list.title"
         >{{list.title}}</a>
       </div>
-    </div>
+    </div>-->
+    <select @change="moveTask" v-model="newListId">
+      <option :value="list.id" v-for="list in lists" :key="list.id">{{list.title}}</option>
+    </select>
+
     <!-- <button @click="removeTask(task)" class="btn btn-danger">X</button> -->
     <button @click="addComment()" class="btn btn-success">Add Comment</button>
     <div>
@@ -40,6 +44,8 @@ export default {
 
   data() {
     return {
+      newListId: "",
+
       newComment: {
         name: "",
         taskId: this.task._id
@@ -52,6 +58,14 @@ export default {
   },
 
   methods: {
+    moveTask(task, listId) {
+      console.log(this.newListId);
+      task.listId = this.newListId;
+      let changedTask = this.task;
+      console.log("here is a changed task", changedTask);
+
+      this.$store.dispatch("changeTaskList", { changedTask });
+    },
     //     createComment(){
     //         swal("Add a Comment:", {
     //    data: "input",
@@ -86,7 +100,7 @@ export default {
       return this.$store.state.comments[this.task._id];
     },
     lists() {
-      return this.$store.state.lists._id;
+      return this.$store.state.lists;
     }
   },
   components: {

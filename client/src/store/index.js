@@ -158,6 +158,9 @@ export default new Vuex.Store({
       let res = await api.delete("tasks/" + task.id);
       dispatch("getTasks", task.listId);
     },
+    async changeTaskList({ commit, dispatch }, { changedTask, listId }) {
+      let res = await api.put(`lists/${listId}/` + changedTask);
+    },
 
     //#endregion
     async createComment({ commit, dispatch }, data) {
