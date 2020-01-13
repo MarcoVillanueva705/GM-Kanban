@@ -59,12 +59,13 @@ export default {
 
   methods: {
     moveTask(task, newListId) {
-      console.log(this.newListId);
-      let changedTaskId = task.listId;
-      task.listId = this.newListId;
+      console.log(task);
+
+      let oldListId = task.listId;
+      task.listId = newListId;
       console.log("here is a changed task", task);
 
-      this.$store.dispatch("changeTaskList", { task, changedTaskId });
+      this.$store.dispatch("changeTaskList", { task, oldListId });
     },
     //     createComment(){
     //         swal("Add a Comment:", {

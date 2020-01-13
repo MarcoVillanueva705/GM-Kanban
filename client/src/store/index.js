@@ -163,8 +163,8 @@ export default new Vuex.Store({
 
       let res = await api.put("tasks/" + data.task.id, data.task);
       dispatch("getTasks", data.task.listId);
-      console.log("here1", data.task.changeTaskId);
-      // dispatch("getTasks", data.task.changeTaskId);
+      console.log("here1", data.oldListId);
+      dispatch("getTasks", data.oldListId);
     },
 
     //#endregion
