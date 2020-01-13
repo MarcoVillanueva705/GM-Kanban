@@ -19,7 +19,7 @@
         >{{list.title}}</a>
       </div>
     </div>-->
-    <select @change="moveTask" v-model="newListId">
+    <select @change="moveTask(task, newListId)" v-model="newListId">
       <option :value="list.id" v-for="list in lists" :key="list.id">{{list.title}}</option>
     </select>
 
@@ -58,13 +58,13 @@ export default {
   },
 
   methods: {
-    moveTask(task, listId) {
+    moveTask(task, newListId) {
       console.log(this.newListId);
+      let changedTaskId = task.listId;
       task.listId = this.newListId;
-      let changedTask = this.task;
-      console.log("here is a changed task", changedTask);
+      console.log("here is a changed task", task);
 
-      this.$store.dispatch("changeTaskList", { changedTask });
+      this.$store.dispatch("changeTaskList", { task, changedTaskId });
     },
     //     createComment(){
     //         swal("Add a Comment:", {
