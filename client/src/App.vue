@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="background">
     <div class="logout">
       <button @click="logOff()">Logout</button>
     </div>
@@ -39,5 +39,9 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.background {
+  background-color: bisque;
 }
 </style>
