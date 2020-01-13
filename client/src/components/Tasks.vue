@@ -23,7 +23,7 @@
       <option :value="list.id" v-for="list in lists" :key="list.id">{{list.title}}</option>
     </select>
 
-    <!-- <button @click="removeTask(task)" class="btn btn-danger">X</button> -->
+    <button @click="removeTask(task)" class="btn btn-danger">X</button>
     <button @click="addComment()" class="btn btn-success">Add Comment</button>
     <div>
       <form @submit.prevent="addComment">
