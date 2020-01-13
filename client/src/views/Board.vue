@@ -78,6 +78,6 @@ export default {
   background-image: url("https://images.unsplash.com/photo-1527609262951-33f360fa5f4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80");
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
+  min-height: 100vh;
 }
 </style>
