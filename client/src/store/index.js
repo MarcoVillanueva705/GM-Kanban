@@ -17,6 +17,7 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
+    lists: [],
     user: {},
     boards: [],
     activeBoard: {}
@@ -28,6 +29,10 @@ export default new Vuex.Store({
     },
     setBoards(state, boards) {
       state.boards = boards
+    },
+
+    setLists(state, data) {
+      state.lists=data
     }
   },
   actions: {
@@ -79,16 +84,21 @@ export default new Vuex.Store({
     //#endregion
 
     //#region -- LISTS --
-async getListByBoardId({commit, dispatch}, id) {
-  let res = await api.get("boards/" +id+ "/lists")
-  console.log(res.data)
-},
+
+    async getLists({commit,dispatch}, id){
+      let res = await api.get("lists")
+      commit("setLists",res.data);
+      console.log(res.data)
+    },
+// async getListByBoardId({commit, dispatch}, id) {
+//   let res = await api.get("boards/" +id+ "/lists")
+//   console.log(res.data)
+// },
 async createList({commit, dispatch}, list) {
   let res= await api.post("lists", list);
   commit("addList",res.data)
   console.log("createlist from store", res)
 }
-
     //#endregion
-  }
-})
+  },
+});

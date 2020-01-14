@@ -21,8 +21,10 @@ async getLists(board) {
   return await _repository.find({board});
 }
 
+async getAll(userId){
+  return await _repository.find({authorId: userId})
 }
-
+}
 
 const _listService = new ListService()
 export default _listService

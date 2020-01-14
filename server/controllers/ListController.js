@@ -7,14 +7,23 @@ export default class ListsController {
   constructor(){
     this.router = express.Router()
     .use(Authorize.authenticated)
-    // .get("", this.getAll),
-    // 
+     .get("", this.getAll)
+  
     .post("", this.create)
     .delete("/:id", this.delete);
 
   }
 
-async create(req, res, next) {
+async getAll(req, res, next) {
+  try {
+    let data = await _listService.getAll(req.session.uid)
+    return res.send(data)
+
+  } catch (error) {
+    next(error)
+  }
+}
+  async create(req, res, next) {
   try {
 req.body.authorId = req.session.uid
 let data = await _listService.create(req.body)

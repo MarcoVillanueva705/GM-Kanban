@@ -1,14 +1,24 @@
 <template>
   <div class="list">
-    {{list}}
+    
+    {{list.title}}
   </div>
 </template>
 
+
 <script>
 export default {
-  name: 'List'
+  name: 'Lists',
+  props: ['list'],
+
+data() {
+  return {
+   list: ""
+    }
+}
 }
 </script>
+
 
 <style scoped>
 </style>

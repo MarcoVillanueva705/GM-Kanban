@@ -3,8 +3,8 @@
     <form @submit.prevent="addList">
       <input type="text" placeholder="title" v-model="newList.title" required>
       <button type="submit">New List</button>
-      <list/> 
     </form>
+      <lists v-for="list in lists" :key="list.id" :list="list"/> 
 
 
   </div>
@@ -12,9 +12,10 @@
 </template>
 
 <script>
-import List from "@/components/List.vue"
+import Lists from "@/components/Lists.vue"
 export default {
   name: "board",
+  // name: "list",
 
 data() {
 return {
@@ -27,8 +28,8 @@ return {
   },
 
   mounted() {
-  this.$store.dispatch("getListByBoardId", this.$route.params.id)
-  
+  this.$store.dispatch("getLists", this.$route.params.boardId)
+
   },
 
     methods:{
@@ -62,10 +63,14 @@ return {
 activeBoard () {
   return this.$store.state.activeBoard;
 },
+lists(){
+  return this.$store.state.lists
+}
+  },
+
 
 components: {
-  List
-}
+  Lists
     },
   props: ["boardId"]
 };
