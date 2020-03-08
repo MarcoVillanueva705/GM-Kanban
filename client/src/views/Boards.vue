@@ -49,7 +49,7 @@ export default {
 
 <style>
 .boards {
-  background-image: url("https://images.unsplash.com/photo-1527609262951-33f360fa5f4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80");
+  background-image: url("https://www.uncovercolorado.com/wp-content/uploads/2015/01/Never-Summer-Snowboard-Lineup-1280x853.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh;
